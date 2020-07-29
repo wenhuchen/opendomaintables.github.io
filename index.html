@@ -204,7 +204,7 @@
         for (i=0; i < string.length; i++){
             num += ord(string.charAt(i));
         }
-        var bucket = num % 10000;
+        var bucket = (num + 5000) % 10000;
         return bucket;
     }
     
