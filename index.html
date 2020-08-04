@@ -211,7 +211,7 @@
     function showID(tableidx) {
         var table_content = '';
         var bucket = compute_bucket(tableidx)
-        var table_url = format('https://raw.githubusercontent.com/wenhuchen/WikiTables-WithLinks/master/table_buckets/{0}.json', bucket)
+        var table_url = format('https://bitbucket.org/wenhuchen/opendomaintables/raw/master/table_buckets/{0}.json', bucket)
         $.get(table_url, function(data){
             var obj = JSON.parse(data);
             if (tableidx in obj){
@@ -226,7 +226,8 @@
         }, 'text').fail(function() {
             console.log("requesting table failed");
         });
-        var request_cur = format('https://raw.githubusercontent.com/wenhuchen/WikiTables-WithLinks/master/request_buckets/{0}.json', bucket)        
+        
+        var request_cur = format('https://bitbucket.org/wenhuchen/opendomaintables/raw/master/request_buckets/{0}.json', bucket)        
         $.get(request_cur, function(data){
             var obj = JSON.parse(data);
             global_requests = obj[tableidx];
