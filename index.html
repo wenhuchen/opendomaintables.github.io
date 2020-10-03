@@ -217,7 +217,7 @@
             console.log("requesting table failed");
         });
         
-        var request_cur = format('https://bitbucket.org/wenhu_chen/opendomaintables/src/master/request_buckets/{0}.json', bucket)        
+        var request_cur = format('https://bitbucket.org/wenhu_chen/opendomaintables/raw/master/request_buckets/{0}.json', bucket)        
         $.get(request_cur, function(data){
             var obj = JSON.parse(data);
             global_requests = obj[tableidx];
