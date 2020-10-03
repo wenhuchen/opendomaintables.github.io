@@ -62,16 +62,11 @@
         var output = []
         var tmp = '<tr>';
         for (i = 0; i < data['header'].length; i++){
-            tmp += '<th>';
-            for(j = 0; j < data['header'][i][0].length; j++){
-                if (data['header'][i][1][j] == null){
-                    tmp += data['header'][i][0][j];
-                }
-                else{
-                    tmp += format('<a onmouseover="showMessage2(this)" id="{0}" href="{1}"> {2}</a>', data['header'][i][1][j], '#extra2', data['header'][i][0][j]);
-                }
+            tmp += '<th>' + data['header'][i][0] + ' '
+            for(j = 0; j < data['header'][i][1].length; j++){
+                tmp += format('<a onmouseover="showMessage2(this)" id="{0}" href="{1}">[{2}]</a>', data['header'][i][1][j], '#extra2', j + 1);
                 if (j < data['header'][i][1].length - 1) {
-                    tmp += ', ';
+                    tmp += ',';
                 }
             }
             tmp += "</th>";
@@ -83,19 +78,14 @@
         for (i = 0; i < data['data'].length; i++){
             tmp = '<tr>'
             for (j = 0; j < data['data'][i].length; j++){
-                tmp += '<td>';
-                for (k = 0; k < data['data'][i][j][0].length; k++){
-                    if (data['data'][i][j][1][k] == null){
-                        tmp += data['data'][i][j][0][k];
+                tmp += '<td>' + data['data'][i][j][0] + ' ';
+                table_cells.push(data['data'][i][j][0])
+                for (k = 0; k < data['data'][i][j][1].length; k++){
+                    tmp += format('<a onmouseover="showMessage2(this)" id="{0}" href="{1}">[{2}]</a>', data['data'][i][j][1][k], '#extra2', k + 1);
+                    if (k < data['data'][i][j][1].length - 1) {
+                        tmp += ',';
                     }
-                    else{
-                        tmp += format('<a onmouseover="showMessage2(this)" id="{0}" href="{1}"> {2}</a>', data['data'][i][j][1][k], '#extra2', data['data'][i][j][0][k]);
-                    }
-                    if (k < data['data'][i][j][0].length - 1) {
-                        tmp += ', ';
-                    }
-                    table_cells.push(data['data'][i][j][0][k])
-                    mapping[decodeURIComponent(data['data'][i][j][1][k])] = data['data'][i][j][0][k]
+                    mapping[data['data'][i][j][1][k]] = data['data'][i][j][0]
                 }
                 tmp += '</td>';
             }
@@ -211,7 +201,7 @@
     function showID(tableidx) {
         var table_content = '';
         var bucket = compute_bucket(tableidx)
-        var table_url = format('https://bitbucket.org/wenhuchen/opendomaintables/raw/master/table_buckets/{0}.json', bucket)
+        var table_url = format('https://bitbucket.org/wenhu_chen/opendomaintables/raw/master/table_buckets/{0}.json', bucket)
         $.get(table_url, function(data){
             var obj = JSON.parse(data);
             if (tableidx in obj){
@@ -227,7 +217,7 @@
             console.log("requesting table failed");
         });
         
-        var request_cur = format('https://bitbucket.org/wenhuchen/opendomaintables/raw/master/request_buckets/{0}.json', bucket)        
+        var request_cur = format('https://bitbucket.org/wenhu_chen/opendomaintables/src/master/request_buckets/{0}.json', bucket)        
         $.get(request_cur, function(data){
             var obj = JSON.parse(data);
             global_requests = obj[tableidx];
